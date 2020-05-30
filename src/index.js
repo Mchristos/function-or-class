@@ -1,17 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = props => {
+	const [location, setLocation] = useState(null);
+	const [errorMessage, setErrorMessage] = useState(null);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+	useEffect( () => {
+		window.navigator.geolocation.getCurrentPosition(
+			pos => {
+				console.log(pos.coords);
+				setLocation(pos);
+			},
+			error => setErrorMessage(error.message) 
+	  )
+	})
+	return location ? (
+		<div> Location: {location.coords.latitude} </div>
+	) : <div> Error accessing location: {errorMessage} </div> 
+}
+
+ReactDOM.render(<App/>, document.querySelector('#root'))
