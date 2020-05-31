@@ -10,14 +10,22 @@ const getSeason = (latitude, month) => {
 	}
 }
 
+const seasonConfig = {
+	winter: {seasonText: 'Brrrrr shes cold', iconName: 'snowflake'},
+	summer: {seasonText: 'Taking it easy on the beach', iconName: 'sun'}
+}
+
 const SeasonDisplay = props => {
 	const { latitude } = props;
 	const season = getSeason(latitude, new Date().getMonth()) 
+	const {seasonText, iconName} = seasonConfig[season] 
 	return (
 		<div> 
+			<i className={`massive ${iconName} icon`} />
 			<h1>
-				{season === 'winter' ? 'Brrrrr shes cold' : 'Taking it easy in the shade'}  
+				{seasonText}
 			</h1>
+			<i className={`massive ${iconName} icon`} />
 		</div>
 	)
 }
