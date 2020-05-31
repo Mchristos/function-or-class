@@ -14,9 +14,14 @@ const App = props => {
 			error => setErrorMessage(error.message) 
 	  )
 	})
+
 	return location ? (
+		// Show the location if defined 
 		<div> Location: {location.coords.latitude} </div>
-	) : <div> Error accessing location: {errorMessage} </div> 
+	) : errorMessage ? (
+		// Show error message if exists
+		<div> Error accessing location: {errorMessage} </div>
+	) : <div> Loading... </div> 
 }
 
 ReactDOM.render(<App/>, document.querySelector('#root'))
