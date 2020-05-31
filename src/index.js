@@ -1,27 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
-const App = props => {
-	const [location, setLocation] = useState(null);
-	const [errorMessage, setErrorMessage] = useState(null);
 
-	useEffect( () => {
-		window.navigator.geolocation.getCurrentPosition(
+class App extends React.Component {
+
+	// shorter alternative to using constructor() method
+  state = { position: null, errorMessage: '' };
+	
+	componentDidMount(){
+	  window.navigator.geolocation.getCurrentPosition(
 			pos => {
 				console.log(pos.coords);
-				setLocation(pos);
+				this.setState({ position: pos });
 			},
-			error => setErrorMessage(error.message) 
-	  )
-	})
+			error => this.setState({ errorMessage: error.message }) 
+	  );
+	}
 
-	return location ? (
-		// Show the location if defined 
-		<div> Location: {location.coords.latitude} </div>
-	) : errorMessage ? (
-		// Show error message if exists
-		<div> Error accessing location: {errorMessage} </div>
-	) : <div> Loading... </div> 
+	render(){
+		return this.state.position ? (
+			// Show the location if defined 
+			<div> Location: {this.state.position.coords.latitude} </div>
+		) : this.state.errorMessage ? (
+			// Show error message if exists
+			<div> Error accessing location: {this.state.errorMessage} </div>
+		) : (
+			// Show loading otherwise
+			<div> Loading... </div>
+		)
+
+	}
 }
 
 ReactDOM.render(<App/>, document.querySelector('#root'))
