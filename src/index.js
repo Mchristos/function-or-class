@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+import SeasonDisplay from './SeasonDisplay'
 
 const App = props => {
 	const [location, setLocation] = useState(null);
@@ -17,7 +18,7 @@ const App = props => {
 
 	return location ? (
 		// Show the location if defined 
-		<div> Location: {location.coords.latitude} </div>
+		<SeasonDisplay latitude={location.coords.latitude}/>
 	) : errorMessage ? (
 		// Show error message if exists
 		<div> Error accessing location: {errorMessage} </div>
