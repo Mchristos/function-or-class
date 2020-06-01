@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import SeasonDisplay from './SeasonDisplay'
+import Spinner from './Spinner'
 
 
 class App extends React.Component {
@@ -27,10 +28,9 @@ class App extends React.Component {
 			<div> Error accessing location: {this.state.errorMessage} </div>
 		) : (
 			// Show loading otherwise
-			<div> Loading... </div>
+      <Spinner text={"Getting location..."} />
 		)
-
-	}
+  }
 }
 
-ReactDOM.render(<App/>, document.querySelector('#root'))
+ReactDOM.render(<App />, document.querySelector('#root'))
