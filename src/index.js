@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import SeasonDisplay from './SeasonDisplay'
+import Spinner from './Spinner'
 
 const App = props => {
 	const [location, setLocation] = useState(null);
@@ -22,7 +23,7 @@ const App = props => {
 	) : errorMessage ? (
 		// Show error message if exists
 		<div> Error accessing location: {errorMessage} </div>
-	) : <div> Loading... </div> 
+	) : <Spinner text={"Getting location..."} />
 }
 
 ReactDOM.render(<App/>, document.querySelector('#root'))
